@@ -8,20 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		B3D224E21DE342AF008934AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224E11DE342AF008934AA /* AppDelegate.swift */; };
-		B3D224E41DE342AF008934AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224E31DE342AF008934AA /* ViewController.swift */; };
-		B3D224E71DE342AF008934AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D224E51DE342AF008934AA /* Main.storyboard */; };
+		B3D224E41DE342AF008934AA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224E31DE342AF008934AA /* CameraViewController.swift */; };
 		B3D224E91DE342AF008934AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D224E81DE342AF008934AA /* Assets.xcassets */; };
 		B3D224EC1DE342B0008934AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D224EA1DE342B0008934AA /* LaunchScreen.storyboard */; };
+		B3D224F41DE34459008934AA /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224F31DE34459008934AA /* DependencyContainer.swift */; };
+		B3D224F61DE34495008934AA /* CamperaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224F51DE34495008934AA /* CamperaView.swift */; };
+		B3D224F91DE3452F008934AA /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F71DE3452F008934AA /* SnapKit.framework */; };
+		B3D224FA1DE3452F008934AA /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F71DE3452F008934AA /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3D224FB1DE3452F008934AA /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F81DE3452F008934AA /* Swinject.framework */; };
+		B3D224FC1DE3452F008934AA /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F81DE3452F008934AA /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3D224FD1DE3452F008934AA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B3D224FA1DE3452F008934AA /* SnapKit.framework in Embed Frameworks */,
+				B3D224FC1DE3452F008934AA /* Swinject.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B3D224DE1DE342AF008934AA /* CoreImageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreImageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D224E11DE342AF008934AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B3D224E31DE342AF008934AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B3D224E61DE342AF008934AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B3D224E31DE342AF008934AA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		B3D224E81DE342AF008934AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3D224EB1DE342B0008934AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3D224ED1DE342B0008934AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3D224F31DE34459008934AA /* DependencyContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		B3D224F51DE34495008934AA /* CamperaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamperaView.swift; sourceTree = "<group>"; };
+		B3D224F71DE3452F008934AA /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		B3D224F81DE3452F008934AA /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D224F91DE3452F008934AA /* SnapKit.framework in Frameworks */,
+				B3D224FB1DE3452F008934AA /* Swinject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				B3D224E01DE342AF008934AA /* CoreImageExample */,
+				B3D224FE1DE34D85008934AA /* Frameworks */,
 				B3D224DF1DE342AF008934AA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,13 +81,23 @@
 			isa = PBXGroup;
 			children = (
 				B3D224E11DE342AF008934AA /* AppDelegate.swift */,
-				B3D224E31DE342AF008934AA /* ViewController.swift */,
-				B3D224E51DE342AF008934AA /* Main.storyboard */,
+				B3D224F31DE34459008934AA /* DependencyContainer.swift */,
+				B3D224E31DE342AF008934AA /* CameraViewController.swift */,
+				B3D224F51DE34495008934AA /* CamperaView.swift */,
 				B3D224E81DE342AF008934AA /* Assets.xcassets */,
 				B3D224EA1DE342B0008934AA /* LaunchScreen.storyboard */,
 				B3D224ED1DE342B0008934AA /* Info.plist */,
 			);
 			path = CoreImageExample;
+			sourceTree = "<group>";
+		};
+		B3D224FE1DE34D85008934AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3D224F71DE3452F008934AA /* SnapKit.framework */,
+				B3D224F81DE3452F008934AA /* Swinject.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +110,7 @@
 				B3D224DA1DE342AF008934AA /* Sources */,
 				B3D224DB1DE342AF008934AA /* Frameworks */,
 				B3D224DC1DE342AF008934AA /* Resources */,
+				B3D224FD1DE3452F008934AA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,7 +163,6 @@
 			files = (
 				B3D224EC1DE342B0008934AA /* LaunchScreen.storyboard in Resources */,
 				B3D224E91DE342AF008934AA /* Assets.xcassets in Resources */,
-				B3D224E71DE342AF008934AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3D224E41DE342AF008934AA /* ViewController.swift in Sources */,
+				B3D224F61DE34495008934AA /* CamperaView.swift in Sources */,
+				B3D224E41DE342AF008934AA /* CameraViewController.swift in Sources */,
+				B3D224F41DE34459008934AA /* DependencyContainer.swift in Sources */,
 				B3D224E21DE342AF008934AA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,14 +183,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B3D224E51DE342AF008934AA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B3D224E61DE342AF008934AA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B3D224EA1DE342B0008934AA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -260,6 +290,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R4HLR9FV49;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CoreImageExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.zeotyn.CoreImageExample;
@@ -273,6 +307,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R4HLR9FV49;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CoreImageExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.zeotyn.CoreImageExample;
@@ -300,6 +338,7 @@
 				B3D224F21DE342B0008934AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
