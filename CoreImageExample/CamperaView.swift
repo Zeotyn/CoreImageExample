@@ -12,12 +12,16 @@ import UIKit
 
 class CameraView: UIView {
     let imageView = UIImageView()
+    let previewLayer = CALayer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .none
+
+        self.layer.addSublayer(previewLayer)
         self.addSubview(imageView)
-        self.imageView.backgroundColor = .white
-        imageView.snp.makeConstraints { (make) in
+        imageView.contentMode = .scaleAspectFill
+        imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
