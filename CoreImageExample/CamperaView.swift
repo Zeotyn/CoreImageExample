@@ -16,6 +16,7 @@ class CameraView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(imageView)
+        self.imageView.backgroundColor = .white
         imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
