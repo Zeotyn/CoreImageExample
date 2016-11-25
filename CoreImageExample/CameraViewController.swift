@@ -8,8 +8,9 @@
 
 import UIKit
 import AVFoundation
+import CoreImage
 
-class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class CameraViewController: UIViewController {
     var cameraView: CameraView
 
     var session: AVCaptureSession?
@@ -27,32 +28,26 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        session = AVCaptureSession()
-        session!.sessionPreset = AVCaptureSessionPresetPhoto
-        let backCamera = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        let input = try? AVCaptureDeviceInput(device: backCamera)
-        let videoOutput = AVCaptureVideoDataOutput()
-        videoOutput.setSampleBufferDelegate(self, queue: queue)
-        if let session = session {
-            if session.canAddInput(input) {
-                session.addInput(input)
-            }
-            if session.canAddOutput(videoOutput) {
-                session.addOutput(videoOutput)
-            }
-
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
-            if let videoPreviewLayer = videoPreviewLayer {
-                videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.portrait
-                cameraView.previewLayer.addSublayer(videoPreviewLayer)
-                videoPreviewLayer.frame = cameraView.bounds
-                session.startRunning()
-            }
-        }
+        self.configureCamera()
     }
 
+    init(cameraView: CameraView) {
+        self.cameraView = cameraView
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
         guard let cvImageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
@@ -80,8 +75,14 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             // Get the detections
             let features = detector.features(in: image)
             for feature in features as! [CIRectangleFeature] {
-                resultImage = drawHighlightOverlayForPoints(image: image, topLeft: feature.topLeft, topRight: feature.topRight,
-                                                            bottomLeft: feature.bottomLeft, bottomRight: feature.bottomRight)
+                print(feature.topLeft)
+                resultImage = drawHighlightOverlayForPoints(
+                    image: image,
+                    topLeft: feature.topLeft,
+                    topRight: feature.topRight,
+                    bottomLeft: feature.bottomLeft,
+                    bottomRight: feature.bottomRight
+                )
             }
         }
         return resultImage
@@ -90,6 +91,8 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func drawHighlightOverlayForPoints(image: CIImage, topLeft: CGPoint, topRight: CGPoint,
                                        bottomLeft: CGPoint, bottomRight: CGPoint) -> CIImage {
         var overlay = CIImage(color: CIColor(red: 0, green: 1.0, blue: 0, alpha: 0.5))
+        var background = CIImage(color: CIColor(color: .black))
+        background = background.cropping(to: image.extent)
         overlay = overlay.cropping(to: image.extent)
         overlay = overlay.applyingFilter("CIPerspectiveTransformWithExtent",
                                          withInputParameters: [
@@ -98,22 +101,45 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                                             "inputTopRight": CIVector(cgPoint: topRight),
                                             "inputBottomLeft": CIVector(cgPoint: bottomLeft),
                                             "inputBottomRight": CIVector(cgPoint: bottomRight)
-            ])
+            ]
+        )
+        let context = CIContext()
+
+        let testimage = image.applyingFilter("CIPerspectiveCorrection", withInputParameters: [
+            kCIInputImageKey: background,
+            "inputTopLeft": CIVector(cgPoint: topLeft),
+            "inputTopRight": CIVector(cgPoint: topRight),
+            "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+            "inputBottomRight": CIVector(cgPoint: bottomRight)
+            ]
+        )
+
         return overlay.compositingOverImage(image)
     }
 
-    init(cameraView: CameraView) {
-        self.cameraView = cameraView
+    func configureCamera() {
+        session = AVCaptureSession()
+        session!.sessionPreset = AVCaptureSessionPresetPhoto
+        let backCamera = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let input = try? AVCaptureDeviceInput(device: backCamera)
+        let videoOutput = AVCaptureVideoDataOutput()
+        videoOutput.setSampleBufferDelegate(self, queue: queue)
+        if let session = session {
+            if session.canAddInput(input) {
+                session.addInput(input)
+            }
+            if session.canAddOutput(videoOutput) {
+                session.addOutput(videoOutput)
+            }
 
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
+            if let videoPreviewLayer = videoPreviewLayer {
+                videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+                cameraView.previewLayer.addSublayer(videoPreviewLayer)
+                videoPreviewLayer.frame = cameraView.bounds
+                session.startRunning()
+            }
+        }
     }
 }

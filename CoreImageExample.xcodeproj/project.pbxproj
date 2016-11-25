@@ -17,6 +17,7 @@
 		B3D224FA1DE3452F008934AA /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F71DE3452F008934AA /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3D224FB1DE3452F008934AA /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F81DE3452F008934AA /* Swinject.framework */; };
 		B3D224FC1DE3452F008934AA /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224F81DE3452F008934AA /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3D225001DE6DAF6008934AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D224FF1DE6DAF6008934AA /* CoreImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,7 @@
 		B3D224F51DE34495008934AA /* CamperaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamperaView.swift; sourceTree = "<group>"; };
 		B3D224F71DE3452F008934AA /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		B3D224F81DE3452F008934AA /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
+		B3D224FF1DE6DAF6008934AA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D225001DE6DAF6008934AA /* CoreImage.framework in Frameworks */,
 				B3D224F91DE3452F008934AA /* SnapKit.framework in Frameworks */,
 				B3D224FB1DE3452F008934AA /* Swinject.framework in Frameworks */,
 			);
@@ -94,6 +97,7 @@
 		B3D224FE1DE34D85008934AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3D224FF1DE6DAF6008934AA /* CoreImage.framework */,
 				B3D224F71DE3452F008934AA /* SnapKit.framework */,
 				B3D224F81DE3452F008934AA /* Swinject.framework */,
 			);
