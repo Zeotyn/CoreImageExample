@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B31544001DEC255F00F6CD17 /* PictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31543FF1DEC255F00F6CD17 /* PictureViewModel.swift */; };
+		B31544031DEC6D1900F6CD17 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */; };
+		B31544041DEC6D1900F6CD17 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B31544061DEC6D2E00F6CD17 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */; };
+		B31544071DEC6D2E00F6CD17 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B31544091DEC6D3B00F6CD17 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544081DEC6D3B00F6CD17 /* Result.framework */; };
+		B315440A1DEC6D3B00F6CD17 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544081DEC6D3B00F6CD17 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3D224E21DE342AF008934AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224E11DE342AF008934AA /* AppDelegate.swift */; };
 		B3D224E41DE342AF008934AA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224E31DE342AF008934AA /* CameraViewController.swift */; };
 		B3D224E91DE342AF008934AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D224E81DE342AF008934AA /* Assets.xcassets */; };
@@ -28,7 +35,10 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B3D224FA1DE3452F008934AA /* SnapKit.framework in Embed Frameworks */,
+				B31544041DEC6D1900F6CD17 /* ReactiveCocoa.framework in Embed Frameworks */,
+				B315440A1DEC6D3B00F6CD17 /* Result.framework in Embed Frameworks */,
 				B3D224FC1DE3452F008934AA /* Swinject.framework in Embed Frameworks */,
+				B31544071DEC6D2E00F6CD17 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,6 +46,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B31543FF1DEC255F00F6CD17 /* PictureViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureViewModel.swift; sourceTree = "<group>"; };
+		B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
+		B31544021DEC6D1900F6CD17 /* ReactiveSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ReactiveSwift.framework.dSYM; path = Carthage/Build/iOS/ReactiveSwift.framework.dSYM; sourceTree = "<group>"; };
+		B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
+		B31544081DEC6D3B00F6CD17 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		B3D224DE1DE342AF008934AA /* CoreImageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreImageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D224E11DE342AF008934AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D224E31DE342AF008934AA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -56,7 +71,10 @@
 			files = (
 				B3D225001DE6DAF6008934AA /* CoreImage.framework in Frameworks */,
 				B3D224F91DE3452F008934AA /* SnapKit.framework in Frameworks */,
+				B31544061DEC6D2E00F6CD17 /* ReactiveSwift.framework in Frameworks */,
+				B31544091DEC6D3B00F6CD17 /* Result.framework in Frameworks */,
 				B3D224FB1DE3452F008934AA /* Swinject.framework in Frameworks */,
+				B31544031DEC6D1900F6CD17 /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +84,10 @@
 		B3D224D51DE342AF008934AA = {
 			isa = PBXGroup;
 			children = (
+				B31544081DEC6D3B00F6CD17 /* Result.framework */,
+				B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */,
+				B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */,
+				B31544021DEC6D1900F6CD17 /* ReactiveSwift.framework.dSYM */,
 				B3D224E01DE342AF008934AA /* CoreImageExample */,
 				B3D224FE1DE34D85008934AA /* Frameworks */,
 				B3D224DF1DE342AF008934AA /* Products */,
@@ -87,6 +109,7 @@
 				B3D224F31DE34459008934AA /* DependencyContainer.swift */,
 				B3D224E31DE342AF008934AA /* CameraViewController.swift */,
 				B3D224F51DE34495008934AA /* CamperaView.swift */,
+				B31543FF1DEC255F00F6CD17 /* PictureViewModel.swift */,
 				B3D224E81DE342AF008934AA /* Assets.xcassets */,
 				B3D224EA1DE342B0008934AA /* LaunchScreen.storyboard */,
 				B3D224ED1DE342B0008934AA /* Info.plist */,
@@ -178,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3D224F61DE34495008934AA /* CamperaView.swift in Sources */,
+				B31544001DEC255F00F6CD17 /* PictureViewModel.swift in Sources */,
 				B3D224E41DE342AF008934AA /* CameraViewController.swift in Sources */,
 				B3D224F41DE34459008934AA /* DependencyContainer.swift in Sources */,
 				B3D224E21DE342AF008934AA /* AppDelegate.swift in Sources */,

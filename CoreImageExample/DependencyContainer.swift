@@ -13,8 +13,9 @@ class DependencyContainer {
     let container = Container() { c in
         c.register(CameraViewController.self) { r in
             let view = CameraView()
+            let viewModel = PictureViewModel()
             
-            let controller = CameraViewController.init(cameraView: view)
+            let controller = CameraViewController.init(cameraView: view, withViewModel: viewModel)
 
             return controller
         }

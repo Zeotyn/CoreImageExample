@@ -8,10 +8,12 @@
 
 import UIKit
 import AVFoundation
+import ReactiveCocoa
 import CoreImage
 
 class CameraViewController: UIViewController {
     var cameraView: CameraView
+    var pictureViewModel: PictureViewModel
 
     var session: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput?
@@ -24,6 +26,10 @@ class CameraViewController: UIViewController {
         super.viewDidLoad()
         cameraView.frame = self.view.frame
         self.view.addSubview(cameraView)
+        self.cameraView.button.reactive.pressed = CocoaAction(pictureViewModel.action, {_ in
+                return "foooooobbbbaaaar"
+            }
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -31,8 +37,9 @@ class CameraViewController: UIViewController {
         self.configureCamera()
     }
 
-    init(cameraView: CameraView) {
+    init(cameraView: CameraView, withViewModel viewModel: PictureViewModel) {
         self.cameraView = cameraView
+        self.pictureViewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
     }
