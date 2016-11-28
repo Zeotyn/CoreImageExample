@@ -17,7 +17,7 @@ class CameraViewController: UIViewController {
     var stillImageOutput: AVCapturePhotoOutput?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
 
-    let detector = CIDetector(ofType: CIDetectorTypeRectangle, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorAspectRatio: 1.0])
+    let detector = CIDetector(ofType: CIDetectorTypeRectangle, context: CIContext(), options: [CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorAspectRatio: 1.0])
     let queue = DispatchQueue(label: "sampleBuffer")
 
     override func viewDidLoad() {
@@ -73,9 +73,10 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         var resultImage: CIImage?
         if let detector = detector {
             // Get the detections
-            let features = detector.features(in: image)
+            let imageWithFilter: CIImage = image.applyingFilter("CIColorControls", withInputParameters: [kCIInputImageKey : image, kCIInputSaturationKey: 3.0, kCIInputContrastKey: 1.0])
+
+            let features = detector.features(in: imageWithFilter)
             for feature in features as! [CIRectangleFeature] {
-                print(feature.topLeft)
                 resultImage = drawHighlightOverlayForPoints(
                     image: image,
                     topLeft: feature.topLeft,
@@ -103,9 +104,18 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                                             "inputBottomRight": CIVector(cgPoint: bottomRight)
             ]
         )
+
+        // todo: do perspectives without blending filter.
         let context = CIContext()
 
-        let testimage = image.applyingFilter("CIPerspectiveCorrection", withInputParameters: [
+        background = background.applyingFilter("CIBlendWithMask", withInputParameters: [
+            kCIInputImageKey: image,
+            kCIInputMaskImageKey: overlay,
+            kCIInputBackgroundImageKey: background
+            ]
+        )
+
+        background = image.applyingFilter("CIPerspectiveCorrection", withInputParameters: [
             kCIInputImageKey: background,
             "inputTopLeft": CIVector(cgPoint: topLeft),
             "inputTopRight": CIVector(cgPoint: topRight),
@@ -118,6 +128,8 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
 
     func configureCamera() {
+        stillImageOutput = AVCapturePhotoOutput()
+
         session = AVCaptureSession()
         session!.sessionPreset = AVCaptureSessionPresetPhoto
         let backCamera = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -130,6 +142,9 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
             if session.canAddOutput(videoOutput) {
                 session.addOutput(videoOutput)
+            }
+            if session.canAddOutput(stillImageOutput) {
+                session.addOutput(stillImageOutput)
             }
 
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
