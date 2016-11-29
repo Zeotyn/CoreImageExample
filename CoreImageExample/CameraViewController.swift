@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import ReactiveSwift
 import ReactiveCocoa
 import CoreImage
 
@@ -18,6 +19,7 @@ class CameraViewController: UIViewController {
     var session: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var stillImage: UIImage?
 
     let detector = CIDetector(ofType: CIDetectorTypeRectangle, context: CIContext(), options: [CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorAspectRatio: 1.0])
     let queue = DispatchQueue(label: "sampleBuffer")
@@ -26,10 +28,18 @@ class CameraViewController: UIViewController {
         super.viewDidLoad()
         cameraView.frame = self.view.frame
         self.view.addSubview(cameraView)
-        self.cameraView.button.reactive.pressed = CocoaAction(pictureViewModel.action, {_ in
-                return "foooooobbbbaaaar"
+        self.cameraView.button.reactive.pressed = CocoaAction(pictureViewModel.buttonAction(), { _ in
+            if let image = self.stillImage {
+                guard let pictureViewController = DependencyContainer().container.resolve(PictureViewController.self) else {
+                    return nil
+                }
+                self.pictureViewModel.image.value = image
+                self.present(pictureViewController, animated: false, completion: nil)
+                return image
+            } else {
+                return nil
             }
-        )
+        })
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -46,11 +56,6 @@ class CameraViewController: UIViewController {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
@@ -70,8 +75,10 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             if let highlightedImage = self.performRectangleDetection(image: cameraImageTransformed) {
                 let filteredImage = UIImage(ciImage: highlightedImage)
                 self.cameraView.imageView.image = filteredImage
+                self.stillImage = filteredImage
             } else {
                 self.cameraView.imageView.image = nil
+                self.stillImage = nil
             }
         }
     }
@@ -80,9 +87,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         var resultImage: CIImage?
         if let detector = detector {
             // Get the detections
-            let imageWithFilter: CIImage = image.applyingFilter("CIColorControls", withInputParameters: [kCIInputImageKey : image, kCIInputSaturationKey: 3.0, kCIInputContrastKey: 1.0])
-
-            let features = detector.features(in: imageWithFilter)
+            let features = detector.features(in: image)
             for feature in features as! [CIRectangleFeature] {
                 resultImage = drawHighlightOverlayForPoints(
                     image: image,
@@ -99,8 +104,6 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func drawHighlightOverlayForPoints(image: CIImage, topLeft: CGPoint, topRight: CGPoint,
                                        bottomLeft: CGPoint, bottomRight: CGPoint) -> CIImage {
         var overlay = CIImage(color: CIColor(red: 0, green: 1.0, blue: 0, alpha: 0.5))
-        var background = CIImage(color: CIColor(color: .black))
-        background = background.cropping(to: image.extent)
         overlay = overlay.cropping(to: image.extent)
         overlay = overlay.applyingFilter("CIPerspectiveTransformWithExtent",
                                          withInputParameters: [
@@ -109,25 +112,6 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                                             "inputTopRight": CIVector(cgPoint: topRight),
                                             "inputBottomLeft": CIVector(cgPoint: bottomLeft),
                                             "inputBottomRight": CIVector(cgPoint: bottomRight)
-            ]
-        )
-
-        // todo: do perspectives without blending filter.
-        let context = CIContext()
-
-        background = background.applyingFilter("CIBlendWithMask", withInputParameters: [
-            kCIInputImageKey: image,
-            kCIInputMaskImageKey: overlay,
-            kCIInputBackgroundImageKey: background
-            ]
-        )
-
-        background = image.applyingFilter("CIPerspectiveCorrection", withInputParameters: [
-            kCIInputImageKey: background,
-            "inputTopLeft": CIVector(cgPoint: topLeft),
-            "inputTopRight": CIVector(cgPoint: topRight),
-            "inputBottomLeft": CIVector(cgPoint: bottomLeft),
-            "inputBottomRight": CIVector(cgPoint: bottomRight)
             ]
         )
 

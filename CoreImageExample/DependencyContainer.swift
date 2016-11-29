@@ -10,13 +10,24 @@ import Foundation
 import Swinject
 
 class DependencyContainer {
-    let container = Container() { c in
-        c.register(CameraViewController.self) { r in
-            let view = CameraView()
+    let container = Container() { container in
+        container.register(PictureViewModel.self) { r in
             let viewModel = PictureViewModel()
-            
-            let controller = CameraViewController.init(cameraView: view, withViewModel: viewModel)
+            return viewModel
+        }
+        .inObjectScope(.container)
 
+        container.register(CameraViewController.self) { r in
+            let view = CameraView()
+            let viewModel = container.resolve(PictureViewModel.self)
+            let controller = CameraViewController.init(cameraView: view, withViewModel: viewModel!)
+            return controller
+        }
+
+        container.register(PictureViewController.self) { r in
+            let view = PictureView()
+            let viewModel = container.resolve(PictureViewModel.self)
+            let controller = PictureViewController(pictureView: view, viewModel: viewModel!)
             return controller
         }
     }
