@@ -1,2 +1,4 @@
+github "ReactiveCocoa/ReactiveCocoa" ~> 5.0
 github "SnapKit/SnapKit" ~> 3.0
 github "Swinject/Swinject" "2.0.0-beta.2"
+

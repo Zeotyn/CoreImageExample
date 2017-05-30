@@ -21,7 +21,7 @@ class CameraViewController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var stillImage: UIImage?
 
-    let detector = CIDetector(ofType: CIDetectorTypeRectangle, context: CIContext(), options: [CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorAspectRatio: 1.0])
+    let detector = CIDetector(ofType: CIDetectorTypeFace, context: CIContext(), options: nil)
     let queue = DispatchQueue(label: "sampleBuffer")
 
     override func viewDidLoad() {
@@ -71,14 +71,19 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let cameraImageTransformed = ciImage.applyingOrientation(6)
 
         /// todo: change the thread
-        DispatchQueue.main.async {
+        DispatchQueue.global().async() {
             if let highlightedImage = self.performRectangleDetection(image: cameraImageTransformed) {
                 let filteredImage = UIImage(ciImage: highlightedImage)
-                self.cameraView.imageView.image = filteredImage
-                self.stillImage = filteredImage
+
+                DispatchQueue.main.async {
+                    self.cameraView.imageView.image = filteredImage
+                    self.stillImage = filteredImage
+                }
             } else {
-                self.cameraView.imageView.image = nil
-                self.stillImage = nil
+                DispatchQueue.main.async {
+                    self.cameraView.imageView.image = nil
+                    self.stillImage = nil
+                }
             }
         }
     }
@@ -88,22 +93,39 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         if let detector = detector {
             // Get the detections
             let features = detector.features(in: image)
-            for feature in features as! [CIRectangleFeature] {
-                resultImage = drawHighlightOverlayForPoints(
-                    image: image,
-                    topLeft: feature.topLeft,
-                    topRight: feature.topRight,
-                    bottomLeft: feature.bottomLeft,
-                    bottomRight: feature.bottomRight
-                )
+            for feature in features as! [CIFaceFeature] {
+                resultImage = hideFace(for: image, with: feature.bounds)
             }
         }
         return resultImage
     }
 
+
+    func hideFace(for image: CIImage, with bounds: CGRect) -> CIImage {
+        var overlay = CIImage(color: CIColor(color: .white))
+        let background = CIImage(color: CIColor(color: .black))
+        overlay = overlay.cropping(to: bounds)
+        overlay = overlay.compositingOverImage(background)
+
+        return overlay.applyingFilter("CIMaskedVariableBlur", withInputParameters: [kCIInputImageKey: image, "inputMask": overlay, "inputRadius": 100.0])
+    }
+
+//    func showEyesAnMouth(for image: CIImage, with feature: CIFaceFeature) -> CIImage {
+//        let leftEye = CIImage(color: CIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5))
+//        let rightEye = CIImage(color: CIColor(red: 0, green: 1.0, blue: 0, alpha: 0.5))
+//        let mouth = CIImage(color: CIColor(red: 0, green: 0, blue: 1.0, alpha: 0.5))
+//
+//        leftEye.cropping(to: CGRect(origin: feature.leftEyePosition, size: CGSize(width: 20, height: 20)))
+//        rightEye.cropping(to: CGRect(origin: feature.rightEyePosition, size: CGSize(width: 20, height: 20)))
+//        mouth.cropping(to: CGRect(origin: feature.mouthPosition, size: CGSize(width: 50, height: 20)))
+//
+//        var image = leftEye.compositingOverImage(image)
+//        return image
+//    }
+
     func drawHighlightOverlayForPoints(image: CIImage, topLeft: CGPoint, topRight: CGPoint,
                                        bottomLeft: CGPoint, bottomRight: CGPoint) -> CIImage {
-        var overlay = CIImage(color: CIColor(red: 0, green: 1.0, blue: 0, alpha: 0.5))
+        var overlay = CIImage(color: CIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1))
         overlay = overlay.cropping(to: image.extent)
         overlay = overlay.applyingFilter("CIPerspectiveTransformWithExtent",
                                          withInputParameters: [

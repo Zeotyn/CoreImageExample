@@ -23,7 +23,7 @@ class CameraView: UIView {
         self.addSubview(imageView)
         imageView.contentMode = .scaleAspectFill
         imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.width.height.equalToSuperview()
         }
 
         button.backgroundColor = .white

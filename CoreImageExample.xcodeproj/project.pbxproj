@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30DEE3B1EDDE95F0018A055 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544081DEC6D3B00F6CD17 /* Result.framework */; };
+		B30DEE3C1EDDE95F0018A055 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544081DEC6D3B00F6CD17 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B30DEE3D1EDDE95F0018A055 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */; };
+		B30DEE3E1EDDE95F0018A055 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B30DEE3F1EDDE95F0018A055 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */; };
+		B30DEE401EDDE95F0018A055 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B31544001DEC255F00F6CD17 /* PictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31543FF1DEC255F00F6CD17 /* PictureViewModel.swift */; };
-		B31544031DEC6D1900F6CD17 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */; };
-		B31544041DEC6D1900F6CD17 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544011DEC6D1900F6CD17 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B31544061DEC6D2E00F6CD17 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */; };
-		B31544071DEC6D2E00F6CD17 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544051DEC6D2E00F6CD17 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B31544091DEC6D3B00F6CD17 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B31544081DEC6D3B00F6CD17 /* Result.framework */; };
-		B315440A1DEC6D3B00F6CD17 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B31544081DEC6D3B00F6CD17 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B315440C1DEECD8300F6CD17 /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B315440B1DEECD8300F6CD17 /* PictureViewController.swift */; };
 		B315440E1DEED49800F6CD17 /* PictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B315440D1DEED49800F6CD17 /* PictureView.swift */; };
 		B3D224E21DE342AF008934AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D224E11DE342AF008934AA /* AppDelegate.swift */; };
@@ -36,11 +36,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B30DEE3C1EDDE95F0018A055 /* Result.framework in Embed Frameworks */,
 				B3D224FA1DE3452F008934AA /* SnapKit.framework in Embed Frameworks */,
-				B31544041DEC6D1900F6CD17 /* ReactiveCocoa.framework in Embed Frameworks */,
-				B315440A1DEC6D3B00F6CD17 /* Result.framework in Embed Frameworks */,
 				B3D224FC1DE3452F008934AA /* Swinject.framework in Embed Frameworks */,
-				B31544071DEC6D2E00F6CD17 /* ReactiveSwift.framework in Embed Frameworks */,
+				B30DEE3E1EDDE95F0018A055 /* ReactiveSwift.framework in Embed Frameworks */,
+				B30DEE401EDDE95F0018A055 /* ReactiveCocoa.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,11 +73,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3D225001DE6DAF6008934AA /* CoreImage.framework in Frameworks */,
+				B30DEE3F1EDDE95F0018A055 /* ReactiveCocoa.framework in Frameworks */,
 				B3D224F91DE3452F008934AA /* SnapKit.framework in Frameworks */,
-				B31544061DEC6D2E00F6CD17 /* ReactiveSwift.framework in Frameworks */,
-				B31544091DEC6D3B00F6CD17 /* Result.framework in Frameworks */,
+				B30DEE3D1EDDE95F0018A055 /* ReactiveSwift.framework in Frameworks */,
+				B30DEE3B1EDDE95F0018A055 /* Result.framework in Frameworks */,
 				B3D224FB1DE3452F008934AA /* Swinject.framework in Frameworks */,
-				B31544031DEC6D1900F6CD17 /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
